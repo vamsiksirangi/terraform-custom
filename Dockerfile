@@ -16,7 +16,7 @@ RUN wget -O terraform-1.39.0.zip https://releases.hashicorp.com/terraform-provid
 RUN ls -lrt /usr/providers
 
 # Add them to hashicorp/terraform image
-FROM hashicorp/terraform:0.11.7
+FROM hashicorp/terraform:0.12.18
 
 
 COPY --from=providers /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /bin/
