@@ -1,25 +1,26 @@
-FROM alpine:latest
-MAINTAINER "The Packer Team <packer@hashicorp.com>"
+ARG TERRAFORM_VERSION=0.11.7
+ARG TERRAFORM_PROVIDER_VERSION=1.39.0
 
 ARG JENKINS_USER="10011"
 ARG JENKINS_USERNAME="cicduser"
 
-ENV PACKER_VERSION=1.5.0
-ENV PACKER_SHA256SUM=6cffd17ee02767fe6533c1fde61b59437bb1e2f5c922d977f739be20dae6bf4a
+# For caching purposes
+FROM alpine as providers
 
-RUN apk add --update git bash wget openssl
+RUN ls -lrt /
+RUN mkdir -p /usr/providers
 
-ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
-ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_SHA256SUMS ./
+# Add providers here
+RUN wget -O terraform-1.39.0.zip https://releases.hashicorp.com/terraform-provider-azurerm/1.39.0/terraform-provider-azurerm_1.39.0_linux_amd64.zip && \
+    unzip -d /usr/providers terraform-1.39.0.zip
+RUN ls -lrt /usr/providers
+s
+# Add them to hashicorp/terraform image
+FROM hashicorp/terraform:0.11.7
 
-RUN sed -i '/.*linux_amd64.zip/!d' packer_${PACKER_VERSION}_SHA256SUMS
-RUN sha256sum -cs packer_${PACKER_VERSION}_SHA256SUMS
-RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /bin
-RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
+
+COPY --from=providers /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /bin/
 
 ENV http_proxy=http://nonprod.inetgw.aa.com:9093/ \
   https_proxy=http://nonprod.inetgw.aa.com:9093/ \
   no_proxy="artifacts.aa.com, nexusread.aa.com"
-
-
-ENTRYPOINT ["/bin/packer"]
