@@ -21,6 +21,7 @@ FROM hashicorp/terraform:0.12.18
 
 COPY --from=providers /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /bin/
 
+WORKDIR /app
 ENV http_proxy=http://nonprod.inetgw.aa.com:9093/ \
   https_proxy=http://nonprod.inetgw.aa.com:9093/ \
   no_proxy="artifacts.aa.com, nexusread.aa.com"
