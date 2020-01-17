@@ -6,11 +6,7 @@ ARG JENKINS_USERNAME="cicduser"
 
 # For caching purposes
 FROM alpine as providers
-RUN groupadd --gid $JENKINS_USER $JENKINS_USERNAME && \
-    adduser --disabled-password --quiet --uid $JENKINS_USER --gid $JENKINS_USER --gecos '' $JENKINS_USERNAME && \
-    usermod -aG sudo $JENKINS_USERNAME
 
-COPY cacert.pem /home/${JENKINS_USERNAME}/cacerts/cacert.pem
 
 RUN ls -lrt /
 RUN mkdir -p /usr/providers
