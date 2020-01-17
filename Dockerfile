@@ -6,6 +6,11 @@ ARG JENKINS_USERNAME="cicduser"
 
 # For caching purposes
 FROM alpine as providers
+RUN addgroup -g $JENKINS_USER $JENKINS_USERNAME && \
+    adduser -D -u $JENKINS_USER -G $JENKINS_USERNAME -g '' $JENKINS_USERNAME && \
+    echo "$JENKINS_USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+COPY cacert.pem /home/${JENKINS_USERNAME}/cacerts/cacert.pem
 
 RUN ls -lrt /
 RUN mkdir -p /usr/providers
