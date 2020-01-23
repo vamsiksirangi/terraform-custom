@@ -14,7 +14,7 @@ COPY cacert.pem /home/${JENKINS_USERNAME}/cacerts/cacert.pem
 RUN mkdir /usr/providers
 
 RUN apk update && \
-    apk add curl bash ca-certificates git openssl unzip wget && \
+    apk add curl bash git openssl unzip wget && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
