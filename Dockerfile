@@ -15,17 +15,17 @@ RUN mkdir /usr/providers
 
 RUN apk update && \
     apk add curl ca-certificates bash git openssl unzip wget && \
+    rm -rf /var/cache/apk/* && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
     wget -O terraform-1.39.0.zip https://releases.hashicorp.com/terraform-provider-azurerm/1.39.0/terraform-provider-azurerm_1.39.0_linux_amd64.zip && \
-    unzip -d /usr/providers terraform-1.39.0.zip
-
-RUN cp /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /usr/bin
+    unzip -d /usr/providers terraform-1.39.0.zip && \
+    cp /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /usr/bin
 
 RUN  mkdir /usr/local/share/ca-certificates/extra
 
-COPY aacacert.pem /usr/local/share/ca-certificates/extra
+COPY aacacert.pem /usr/local/share/ca-certificates/extra/aacacert.pem
 
 RUN update-ca-certificates
 
@@ -34,3 +34,4 @@ ENV http_proxy=http://nonprod.inetgw.aa.com:9093/ \
     no_proxy="artifacts.aa.com, nexusread.aa.com"
 
 USER root
+
