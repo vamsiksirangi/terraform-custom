@@ -23,9 +23,9 @@ RUN apk update && \
     unzip -d /usr/providers terraform-1.39.0.zip && \
     cp /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /usr/bin
 
-RUN  mkdir /usr/local/share/ca-certificates/extra
+#RUN  mkdir /usr/local/share/ca-certificates/extra
 
-COPY aacacert.pem /usr/local/share/ca-certificates/extra/aacacert.pem
+COPY aacacert.pem /usr/local/share/ca-certificates/aacacert.pem
 
 RUN update-ca-certificates
 
