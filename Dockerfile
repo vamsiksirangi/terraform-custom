@@ -31,7 +31,7 @@ RUN update-ca-certificates
 
 ENV http_proxy=http://nonprod.inetgw.aa.com:9093/ \
     https_proxy=http://nonprod.inetgw.aa.com:9093/ \
-    no_proxy="artifacts.aa.com, nexusread.aa.com"
+    no_proxy="artifacts.aa.com, nexusread.aa.com, *.azure.net"
 
 USER root
 
