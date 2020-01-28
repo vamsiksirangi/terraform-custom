@@ -25,7 +25,7 @@ RUN apk update && \
 
 #RUN  mkdir /usr/local/share/ca-certificates/extra
 
-COPY aacacert.pem /usr/local/share/ca-certificates/aacacert.pem
+COPY cacert.pem /usr/local/share/ca-certificates/aacacert.pem
 
 RUN update-ca-certificates
 
