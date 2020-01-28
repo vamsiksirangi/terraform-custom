@@ -22,7 +22,7 @@ RUN apk update && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
     wget -O terraform-provider.zip https://releases.hashicorp.com/terraform-provider-azurerm/${TERRAFORM_AZURERM_PROVIDER_VERSION}/terraform-provider-azurerm_${TERRAFORM_AZURERM_PROVIDER_VERSION}_linux_amd64.zip && \
     unzip -d /usr/providers terraform-provider.zip && \
-    cp /usr/providers/terraform-provider-azurerm_v${TERRAFORM_VERSION}_x4 /usr/bin
+    cp /usr/providers/terraform-provider-azurerm_v${TERRAFORM_AZURERM_PROVIDER_VERSION}_x4 /usr/bin
 
 #RUN  mkdir /usr/local/share/ca-certificates/extra
 
