@@ -1,6 +1,7 @@
 FROM alpine:3.11.2
 
 ENV TERRAFORM_VERSION=0.12.18
+ENV TERRAFORM_AZURERM_PROVIDER_VERSION=1.42.0
 
 ARG JENKINS_USER="10011"
 ARG JENKINS_USERNAME="cicduser"
@@ -19,9 +20,9 @@ RUN apk update && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
-    wget -O terraform-1.39.0.zip https://releases.hashicorp.com/terraform-provider-azurerm/1.39.0/terraform-provider-azurerm_1.39.0_linux_amd64.zip && \
-    unzip -d /usr/providers terraform-1.39.0.zip && \
-    cp /usr/providers/terraform-provider-azurerm_v1.39.0_x4 /usr/bin
+    wget -O terraform-provider.zip https://releases.hashicorp.com/terraform-provider-azurerm/${TERRAFORM_AZURERM_PROVIDER_VERSION}/terraform-provider-azurerm_${TERRAFORM_AZURERM_PROVIDER_VERSION}_linux_amd64.zip && \
+    unzip -d /usr/providers terraform-provider.zip && \
+    cp /usr/providers/terraform-provider-azurerm_v${TERRAFORM_VERSION}_x4 /usr/bin
 
 #RUN  mkdir /usr/local/share/ca-certificates/extra
 
