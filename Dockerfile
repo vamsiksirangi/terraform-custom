@@ -15,7 +15,7 @@ RUN addgroup -g $JENKINS_USER $JENKINS_USERNAME && \
 RUN mkdir /usr/providers
 
 RUN apk update && \
-    apk add curl ca-certificates bash openssl unzip wget && \
+    apk add curl ca-certificates bash openssl git unzip wget && \
     rm -rf /var/cache/apk/* && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
