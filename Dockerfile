@@ -17,6 +17,13 @@ RUN apk update && \
 
 FROM mcr.microsoft.com/azure-cli
 
+ARG JENKINS_USER="10011"
+ARG JENKINS_USERNAME="cicduser"
+
+RUN addgroup -g $JENKINS_USER $JENKINS_USERNAME && \
+    adduser -D -u $JENKINS_USER -G $JENKINS_USERNAME -g '' $JENKINS_USERNAME && \
+    echo "$JENKINS_USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 RUN apk update && apk add git 
 
 COPY cacert.pem /usr/local/share/ca-certificates/cacert.pem
